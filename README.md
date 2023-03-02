@@ -4,8 +4,15 @@
 
 ### How to use
 
+* Install package
+  ```
+  pip install openai
+  ```
 * Replace with your secret key
 * Run the script
+  ```python
+  python chatUI.pyw
+  ```
 
 ### API key
 
