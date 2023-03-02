@@ -1,1 +1,4 @@
-# UI-of-chatGPT-API
+### UI-of-chatGPT-API
+
+* Replace your secret key
+* Run the script
