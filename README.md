@@ -1,6 +1,6 @@
 ### Requirements
 
-* openai==0.27.0
+* openai>=0.27.0
 
 ### How to use
 
