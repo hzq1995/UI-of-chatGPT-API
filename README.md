@@ -2,7 +2,7 @@
 
 * openai==0.27.0
 
-### Usage
+### How to use
 
 * Replace with your secret key
 * Run the script
