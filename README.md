@@ -4,7 +4,7 @@
 
 ### Usage
 
-* Replace your secret key
+* Replace with your secret key
 * Run the script
 
 ### API key
