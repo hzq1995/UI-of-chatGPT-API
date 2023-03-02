@@ -1,17 +1,40 @@
 # REFERENCE: "https://platform.openai.com/docs/guides/chat"
 
-import tkinter as tk
-import openai
 import time
+import openai
+import threading
+import tkinter as tk
 
-SECRET_KEY = "replace with your OPENAI secret key here"  # 替换你的API key
+SECRET_KEY = "replace your OPENAI secret key here"  # 替换你的API key
 openai.api_key = SECRET_KEY
 
 MAX_TOKEN_LEN = 1024
-TIME_OUT = 3
+TIME_OUT = 2
 
 BOT_ROLE = 'assistant'
 USER_ROLE = 'user'
+PROMPT = f'you are {BOT_ROLE}, a cute catgirl.'
+
+
+# 超时装饰器
+def timeout(seconds):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = [None]
+            def worker():
+                try:
+                    result[0] = func(*args, **kwargs)
+                except Exception as e:
+                    pass
+            t = threading.Thread(target=worker)
+            t.daemon = True
+            t.start()
+            t.join(seconds)
+            if t.is_alive():
+                return []
+            return result[0]
+        return wrapper
+    return decorator
 
 
 # 创建机器人
@@ -20,22 +43,19 @@ class MyChatBot:
         self.messages = []
         self.reset_log()
 
+    @timeout(TIME_OUT)
     def receive_message_from_api(self):
-        response = []
-        try:
-            response = openai.ChatCompletion.create(
-                model='gpt-3.5-turbo-0301',
-                messages=self.messages,
-                temperature=1.0,
-                max_tokens=MAX_TOKEN_LEN,
-                top_p=0.6,
-                frequency_penalty=2.0,
-                presence_penalty=0.0,
-                stream=True,
-                timeout=TIME_OUT,
-            )
-        except:
-            pass
+        response = openai.ChatCompletion.create(
+            model='gpt-3.5-turbo-0301',
+            messages=self.messages,
+            temperature=1.0,
+            max_tokens=MAX_TOKEN_LEN,
+            top_p=0.6,
+            frequency_penalty=2.0,  # 降低出现频繁的单词的权重
+            presence_penalty=0.0,  # 降低不常出现的单词的权重
+            stream=True,
+            timeout=TIME_OUT,
+        )
         return response
 
     def get_response(self, prompt):
@@ -45,7 +65,7 @@ class MyChatBot:
         return stream_response
 
     def reset_log(self):
-        self.messages = [{'role': 'system', 'content': f'You are {BOT_ROLE}, a cute catgirl.'}]
+        self.messages = [{'role': 'system', 'content': PROMPT}]
 
     def add_user_content(self, content):
         self.messages.append({'role': USER_ROLE, 'content': content})
@@ -126,7 +146,7 @@ class ChatUI:
                     break
                 timeout_cnt += 1
                 if timeout_cnt >= TIME_OUT:
-                    self.conversation.insert(tk.END, "[Timeout In Stream]")
+                    self.conversation.insert(tk.END, "[Timeout]")
                     self.conversation.see(tk.END)
                     break
                 time.sleep(1)
