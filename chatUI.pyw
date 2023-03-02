@@ -9,7 +9,7 @@ SECRET_KEY = "replace your OPENAI secret key here"  # 替换你的API key
 openai.api_key = SECRET_KEY
 
 MAX_TOKEN_LEN = 1024
-TIME_OUT = 2
+TIME_OUT = 3
 
 BOT_ROLE = 'assistant'
 USER_ROLE = 'user'
