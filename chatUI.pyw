@@ -5,10 +5,8 @@ import openai
 import time
 
 SECRET_KEY = "replace with your OPENAI secret key here"  # 替换你的API key
-
 openai.api_key = SECRET_KEY
-ENGINE_LIST = openai.Engine.list()
-MODEL_LIST = openai.Model.list()
+
 MAX_TOKEN_LEN = 1024
 TIME_OUT = 3
 
