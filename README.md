@@ -1,4 +1,4 @@
-### Requestments
+### Requirements
 
 * openai==0.27.0
 
