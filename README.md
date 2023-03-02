@@ -10,4 +10,4 @@
 ### API key
 
 * get key from https://platform.openai.com/
-* 右上角点击头像，view API keys
+* Click the avatar on the right upper conner, View API keys
