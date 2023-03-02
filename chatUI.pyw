@@ -4,7 +4,7 @@ import tkinter as tk
 import openai
 import time
 
-SECRET_KEY = "replace your OPENAI secret key here"  # 替换你的API key
+SECRET_KEY = "replace with your OPENAI secret key here"  # 替换你的API key
 
 openai.api_key = SECRET_KEY
 ENGINE_LIST = openai.Engine.list()
