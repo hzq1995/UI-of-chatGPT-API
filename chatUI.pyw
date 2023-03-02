@@ -47,7 +47,7 @@ class MyChatBot:
         return stream_response
 
     def reset_log(self):
-        self.messages = [{'role': 'system', 'content': f'you are {BOT_ROLE}, a cute catgirl.'}]
+        self.messages = [{'role': 'system', 'content': f'You are {BOT_ROLE}, a cute catgirl.'}]
 
     def add_user_content(self, content):
         self.messages.append({'role': USER_ROLE, 'content': content})
