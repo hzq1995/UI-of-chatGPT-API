@@ -11,7 +11,7 @@
 * Replace with your secret key
 * Run the script
   ```python
-  python chatUI.pyw
+  pythonw chatUI.pyw
   ```
 
 ### API key
