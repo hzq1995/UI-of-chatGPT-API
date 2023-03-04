@@ -16,5 +16,10 @@
 
 ### API key
 
-* get key from https://platform.openai.com/
+* Get key from https://platform.openai.com/
 * Click the avatar on the right upper conner, View API keys
+
+
+### Customization
+
+* Modify PROMPT to determine AI's character.
