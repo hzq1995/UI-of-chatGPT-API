@@ -13,7 +13,7 @@ TIME_OUT = 3
 
 BOT_ROLE = 'assistant'
 USER_ROLE = 'user'
-PROMPT = f'you are {BOT_ROLE}, a cute catgirl.'
+PROMPT = f'you are {BOT_ROLE}, a cute catgirl.'  # 定制AI的性格
 
 
 # 超时装饰器
