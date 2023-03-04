@@ -22,4 +22,4 @@
 
 ### Customization
 
-* Modify PROMPT to determine AI's character.
+* Modify PROMPT to determine AI's character
