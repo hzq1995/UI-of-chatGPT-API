@@ -152,7 +152,7 @@ class ChatUI:
                 time.sleep(1)
 
         self.chatbot.add_bot_content(answer)  # 记录机器人的回答
-        self.conversation.insert(tk.END, '\n')
+        self.conversation.insert(tk.END, '\n\n')
         self.conversation.see(tk.END)
         self.conversation.config(state='disabled')
 
