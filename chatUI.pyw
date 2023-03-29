@@ -6,7 +6,7 @@ import threading
 import tkinter as tk
 import urllib3
 
-assert urllib3.__version__ <= '1.25.11'
+assert urllib3.__version__.split(".")[1] <= "25"
 
 SECRET_KEY = "replace your OPENAI secret key here"  # 替换你的API key
 openai.api_key = SECRET_KEY
