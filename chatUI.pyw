@@ -54,7 +54,7 @@ class MyChatBot:
             temperature=1.0,
             max_tokens=MAX_TOKEN_LEN,
             top_p=0.6,
-            frequency_penalty=2.0,  # 降低出现频繁的单词的权重
+            frequency_penalty=0.0,  # 降低出现频繁的单词的权重
             presence_penalty=0.0,  # 降低不常出现的单词的权重
             stream=True,
             timeout=TIME_OUT,
