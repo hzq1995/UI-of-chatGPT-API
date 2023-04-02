@@ -81,13 +81,15 @@ class ChatUI:
     def __init__(self):
         chatbot = MyChatBot()
 
+        self.is_paused = False
+
         # 创建 GUI 界面
         root = tk.Tk()
         root.title('Chatbot')
         root.attributes("-topmost", True)
 
         # 创建对话框
-        conversation = tk.Text(root, bd=1, bg='white', width=50, height=30)
+        conversation = tk.Text(root, bd=1, bg='white', width=60, height=50)
         conversation.config(state='disabled')
         conversation.grid(row=0, column=0, sticky='nsew', padx=5, pady=5)
 
@@ -104,16 +106,62 @@ class ChatUI:
         clear_button = tk.Button(root, text='Clear', command=self.clear_conversation)  # 点击发送
         clear_button.grid(row=0, column=1, sticky='nsew', padx=5)
 
+        # 创建暂停按钮
+        pause_button = tk.Button(root, text='Pause', command=self.pause_chat)
+        pause_button.grid(row=2, column=0, sticky='nsew', padx=5)
+
         self.chatbot = chatbot
         self.root = root
         self.conversation = conversation
         self.input_field = input_field
+        self.pause_button = pause_button
+
+    def pause_chat(self):
+        self.is_paused = not self.is_paused  # 切换状态
+
+    def chatting(self):
+        if not self.input_field.get():  # 如果输入框为空，则直接返回
+            return
+
+        if self.is_paused:  # 如果被暂停，则直接显示提示信息
+            if self.input_field.get() == 'resume':  # 如果输入的是'resume'，则恢复聊天状态，并清空输入框
+                self.is_paused = False
+                self.update_conversation("Chatbot is resumed.", True)
+                self.input_field.delete(0, tk.END)
+            else:
+                message = "Chatbot is paused. Type 'resume' to continue."
+                self.update_conversation(message)
+                return
+            user_input = self.input_field.get()
+            self.update_conversation(user_input)
+
+            response = self.chatbot.get_response(user_input)
+            self.update_conversation(response, True)
+
+            self.input_field.delete(0, tk.END)
+
+    def update_conversation(self, message, is_bot=False):
+            if is_bot:
+                message = f"Bot: {message}"
+            else:
+                message = f"You: {message}"
+
+            self.conversation.config(state='normal')
+            self.conversation.insert(tk.END, message + '\n')
+            self.conversation.see(tk.END)
+            self.conversation.config(state='disabled')
 
     def clear_conversation(self):
-        self.chatbot.reset_log()
-        self.conversation.config(state='normal')
-        self.conversation.delete('1.0', tk.END)
-        self.conversation.config(state='disabled')
+            self.conversation.config(state='normal')
+            self.conversation.delete(1.0, tk.END)
+            self.conversation.config(state='disabled')
+
+    def pause_chat(self):
+        self.is_paused = not self.is_paused  # 切换状态
+        if self.is_paused:
+            self.update_conversation("Chatbot is paused. Type 'resume' to continue.")
+        else:
+            self.update_conversation("Chatbot is resumed.")
 
     # 定义获取响应的函数
     def chatting(self):
